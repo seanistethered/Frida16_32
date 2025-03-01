@@ -53,18 +53,14 @@ void core_sti(core_t *core)
 void core_mwrt(core_t *core)
 {
     byte_t reg_addr = pc_count_up_and_read(core);
-    pc_count_up_and_read(core);
-    uint16_t mem_addr = ram_read16(core->pc);
-    pc_count_up_and_read(core);
+    uint16_t mem_addr = pc_count_up_and_read_16(core);
     ram_write16(mem_addr, cpuRegisterRead(core, reg_addr));
 }
 
 void core_rwrt(core_t *core)
 {
     byte_t reg_addr = pc_count_up_and_read(core);
-    pc_count_up_and_read(core);
-    uint16_t mem_addr = ram_read16(core->pc);
-    pc_count_up_and_read(core);
+    uint16_t mem_addr = pc_count_up_and_read_16(core);
     cpuRegisterWrite(core, reg_addr, ram_read(mem_addr));
 }
 
@@ -86,9 +82,7 @@ void core_mov(core_t *core)
 
 void core_jmp(core_t *core)
 {
-    pc_count_up_and_read(core);
-    uint16_t pc_addr = ram_read16(core->pc) - 1;
-    pc_count_up_and_read(core);
+    uint16_t pc_addr = pc_count_up_and_read_16(core) - 1;
     core->pc = pc_addr;
 }
 
@@ -98,9 +92,7 @@ void core_cal(core_t *core)
     core->rt_cout++;
     core->rt_tree[core->rt_cout] = core->pc;
     // calling function
-    pc_count_up_and_read(core);
-    uint16_t pc_addr = ram_read16(core->pc) - 1;
-    pc_count_up_and_read(core);
+    uint16_t pc_addr = pc_count_up_and_read_16(core) - 1;
     core->pc = pc_addr;
 }
 
