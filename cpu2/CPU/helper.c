@@ -29,12 +29,12 @@
 void pc_count_up(core_t *core)
 {
     core->pc++;
-    core->ex = ram_read16(core->pc);
+    core->ex = ram_read(core->pc);
 }
 
 byte_t pc_count_up_and_read(core_t *core)
 {
     core->pc++;
-    core->ex = ram_read16(core->pc);
+    core->ex = ram_read(core->pc);
     return core->ex;
 }
