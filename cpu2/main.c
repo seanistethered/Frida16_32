@@ -40,12 +40,18 @@ int main(void)
         {"return"},
         {"output", "p"},
         {"end"},
+        {"return"},
         {NULL, NULL}
     };
     compile_function("print", args_print_func);
     
     const char *args_main[][10] = {
         {"call", "print", "Hello\n"},
+        {"call", "print", "My\n"},
+        {"call", "print", "Name\n"},
+        {"call", "print", "Is\n"},
+        {"call", "print", "SeanIsTethered\n"},
+        {"return"},
         {NULL, NULL}
     };
     compile_function("main", args_main);

@@ -178,9 +178,6 @@ void compile_function(const char *name, const char* args[][10])
         }
     }
     
-    // implement return into function
-    lzc_build_return_instruction();
-    
     // assign end offset
     stapleFunction(function);
     printf("[fc] function \"%s\" ends at 0x%04X\n", function->name, function->end);
