@@ -1,0 +1,3 @@
+load a 6
+load b 2
+add a b
