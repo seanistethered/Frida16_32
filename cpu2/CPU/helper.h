@@ -31,5 +31,6 @@
 
 void pc_count_up(core_t *core);
 byte_t pc_count_up_and_read(core_t *core);
+uint16_t pc_count_up_and_read_16(core_t *core);
 
 #endif
