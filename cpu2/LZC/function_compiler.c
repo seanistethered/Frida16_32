@@ -149,7 +149,7 @@ void compile_function(const char *name, const char* args[][10])
         {
             current_loop--;
             stapleFunction(&loop_cache[current_loop]);
-            printf("[fc] loop starts at 0x%04X\n", loop_cache[current_loop].end);
+            printf("[fc] loop ends at 0x%04X\n", loop_cache[current_loop].end);
             lzc_build_jmp_direct_instruction(loop_cache[current_loop].start);
             loop_cache[current_loop].start = 0;
             loop_cache[current_loop].end = 0;
