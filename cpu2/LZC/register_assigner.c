@@ -29,24 +29,50 @@
 byte_t TellMeWhatRegisterThisWas(const char ident)
 {
     switch (ident) {
-        case 'a':
+        case 'A':
             return 0b00000000;
-        case 'b':
+        case 'B':
             return 0b00000001;
-        case 'c':
+        case 'C':
             return 0b00000010;
-        case 'd':
+        case 'D':
             return 0b00000011;
-        case 'e':
+        case 'E':
             return 0b00000100;
-        case 'f':
+        case 'F':
             return 0b00000101;
-        case 'g':
+        case 'G':
             return 0b00000110;
-        case 'h':
+        case 'H':
             return 0b00000111;
-        case 'p':
+        case 'P':
             return 0b00001000;
+        default:
+            return 0;
+    }
+}
+
+char TellMeWhatLetterRegisterThisWas(byte_t addr)
+{
+    switch (addr) {
+        case 0b00000000:
+            return 'A';
+        case 0b00000001:
+            return 'B';
+        case 0b00000010:
+            return 'C';
+        case 0b00000011:
+            return 'D';
+        case 0b00000100:
+            return 'E';
+        case 0b00000101:
+            return 'F';
+        case 0b00000110:
+            return 'G';
+        case 0b00000111:
+            return 'H';
+        case 0b00001000:
+            return 'P';
         default:
             return 0;
     }

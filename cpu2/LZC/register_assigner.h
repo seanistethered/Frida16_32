@@ -27,3 +27,4 @@
 #include "../RAM/mem.h"
 
 byte_t TellMeWhatRegisterThisWas(const char ident);
+char TellMeWhatLetterRegisterThisWas(byte_t addr);
