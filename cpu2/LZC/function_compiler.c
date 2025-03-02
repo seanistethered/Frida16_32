@@ -32,12 +32,6 @@
 #include <stdio.h>
 #include <string.h>
 
-typedef struct {
-    char *name;
-    uint16_t start;
-    uint16_t end;
-} function_t;
-
 extern uint16_t current_ram_address;
 function_t function_cache[256];
 function_t loop_cache[256];
