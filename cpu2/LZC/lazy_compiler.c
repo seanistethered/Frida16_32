@@ -25,6 +25,7 @@
 */
 
 #include "lazy_compiler.h"
+#include "jump_builder.h"
 #include <stdio.h>
 
 uint16_t current_ram_address = 10;
@@ -130,10 +131,10 @@ void lzc_build_jmp_instruction(byte_t addr)
 {
     uint16_t offset = instruct_offset_giver("jmp");
     ram_write(offset, cpu_jmp);
+    uint16_t offset_of_jump_address = lzc_helper_count_up();
+    ram_write16(current_ram_address, 0xffff);
     lzc_helper_count_up();
-    ram_write16(current_ram_address, offset + addr);
-    lzc_helper_count_up();
-    printf("[lzc] jmp to -> 0x%04X\n", instruction_ram[addr]);
+    add_jump_registry(offset_of_jump_address, current_instruction + addr);
 }
 
 void lzc_build_jmp_direct_instruction(uint16_t addr)
@@ -142,7 +143,7 @@ void lzc_build_jmp_direct_instruction(uint16_t addr)
     lzc_helper_count_up();
     ram_write16(current_ram_address, addr);
     lzc_helper_count_up();
-    printf("[lzc] jmp to -> 0x%04X\n", addr);
+    printf("[lzc] info: jumps to 0x%04X\n", addr);
 }
 
 void lzc_build_call_instruction(byte_t addr)
@@ -164,9 +165,11 @@ void lzc_build_je_instruction(byte_t reg_addr_1, byte_t reg_addr_2, uint16_t mem
     ram_write(offset, cpu_je);
     ram_write(lzc_helper_count_up(), reg_addr_1);
     ram_write(lzc_helper_count_up(), reg_addr_2);
+    uint16_t offset_of_jump_address = lzc_helper_count_up();
+    ram_write16(current_ram_address, 0xffff);
     lzc_helper_count_up();
-    ram_write16(current_ram_address, offset + mem_addr);
-    lzc_helper_count_up();
+    add_jump_registry(offset_of_jump_address, current_instruction + mem_addr);
+    
 }
 
 void lzc_build_jg_instruction(byte_t reg_addr_1, byte_t reg_addr_2, uint16_t mem_addr)
@@ -175,9 +178,10 @@ void lzc_build_jg_instruction(byte_t reg_addr_1, byte_t reg_addr_2, uint16_t mem
     ram_write(offset, cpu_jg);
     ram_write(lzc_helper_count_up(), reg_addr_1);
     ram_write(lzc_helper_count_up(), reg_addr_2);
+    uint16_t offset_of_jump_address = lzc_helper_count_up();
+    ram_write16(current_ram_address, 0xffff);
     lzc_helper_count_up();
-    ram_write16(current_ram_address, offset + mem_addr);
-    lzc_helper_count_up();
+    add_jump_registry(offset_of_jump_address, current_instruction + mem_addr);
 }
 
 void lzc_build_jl_instruction(byte_t reg_addr_1, byte_t reg_addr_2, uint16_t mem_addr)
@@ -186,9 +190,10 @@ void lzc_build_jl_instruction(byte_t reg_addr_1, byte_t reg_addr_2, uint16_t mem
     ram_write(offset, cpu_jl);
     ram_write(lzc_helper_count_up(), reg_addr_1);
     ram_write(lzc_helper_count_up(), reg_addr_2);
+    uint16_t offset_of_jump_address = lzc_helper_count_up();
+    ram_write16(current_ram_address, 0xffff);
     lzc_helper_count_up();
-    ram_write16(current_ram_address, offset + mem_addr);
-    lzc_helper_count_up();
+    add_jump_registry(offset_of_jump_address, current_instruction + mem_addr);
 }
 
 void lzc_build_spw_instruction(byte_t value)
