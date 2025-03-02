@@ -62,3 +62,9 @@ uint16_t ram_ptr_read16(uint16_t addr)
     uint16_t *address_ptr = (uint16_t*)&ram[ram[addr]];
     return *address_ptr;
 }
+
+// INTERNAL FUNCTIONS //
+byte_t* intl_ram_handoff(void)
+{
+    return &ram[0];
+}

@@ -40,3 +40,6 @@ void ram_write16(uint16_t addr, uint16_t value);
 // pointer
 byte_t ram_ptr_read(uint16_t addr);
 uint16_t ram_ptr_read16(uint16_t addr);
+
+// INTERNAL FUNCTIONS //
+byte_t* intl_ram_handoff(void);
