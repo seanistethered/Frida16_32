@@ -29,16 +29,19 @@
 #include "LZC/lazy_compiler.h"
 #include "LZC/function_compiler.h"
 #include "LZC/header_compiler.h"
+#include "LZC/compiler_resetter.h"
+#include "LZC/jump_builder.h"
+#include "dumper.h"
 
 int main(void)
 {
     // compile code
     const char *args_print_func[][10] = {
-        {"load", "a", "0"},
+        {"load", "A", "0"},
         {"loop"},
-        {"isgreater", "p", "a", "6"},
+        {"isgreater", "P", "A", "1"},
         {"return"},
-        {"output", "p"},
+        {"output", "P"},
         {"end"},
         {"return"},
         {NULL, NULL}
@@ -46,11 +49,16 @@ int main(void)
     compile_function("print", args_print_func);
     
     const char *args_main[][10] = {
-        {"call", "print", "Hello\n"},
-        {"call", "print", "My\n"},
-        {"call", "print", "Name\n"},
-        {"call", "print", "Is\n"},
-        {"call", "print", "SeanIsTethered\n"},
+        {"call", "print", "Hello, im Frida8_16\n"},
+        {"load", "B", "10"},
+        {"load", "C", "0"},
+        {"load", "D", "1"},
+        {"loop"},
+        {"isless", "C", "B", "1"},
+        {"return"},
+        {"call", "print", "Meow\n"},
+        {"subtract", "B", "D"},
+        {"end"},
         {"return"},
         {NULL, NULL}
     };
@@ -58,6 +66,9 @@ int main(void)
     
     // compile header
     compile_header();
+    finalise_jumps();
+    frida816_revser_engineerer(10);
+    compiler_reset();
     
     // initial code
     core_t *core = malloc(sizeof(core_t));
@@ -65,6 +76,7 @@ int main(void)
     // fixing execution the lazy compiler destroys currently
     core_setup(core, 0b00000001);
     core_run(core);
+    soc_reset();
     free(core);
     return 0;
 }
