@@ -24,6 +24,7 @@
  SOFTWARE.
 */
 
+#include "function_compiler.h"
 #include "lazy_compiler.h"
 #include "register_assigner.h"
 #include "value_assigner.h"
@@ -150,6 +151,8 @@ void compile_function(const char *name, const char* args[][10])
             stapleFunction(&loop_cache[current_loop]);
             printf("[fc] loop starts at 0x%04X\n", loop_cache[current_loop].end);
             lzc_build_jmp_direct_instruction(loop_cache[current_loop].start);
+            loop_cache[current_loop].start = 0;
+            loop_cache[current_loop].end = 0;
         }
         
         // function stuff

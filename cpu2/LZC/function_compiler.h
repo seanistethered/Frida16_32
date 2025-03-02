@@ -24,4 +24,12 @@
  SOFTWARE.
 */
 
+#include <stdint.h>
+
+typedef struct {
+    char *name;
+    uint16_t start;
+    uint16_t end;
+} function_t;
+
 void compile_function(const char *name, const char* args[][10]);
